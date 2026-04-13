@@ -1,0 +1,98 @@
+import java.util.*;
+class Bus {
+    private int busNumber;
+    private String source;
+    private String destination;
+    private int totalSeats;
+    private int availableSeats;
+    Bus(int bn, String s, String d, int ts) {
+        busNumber = bn;
+        source = s;
+        destination = d;
+        totalSeats = ts;
+        availableSeats = ts;
+    }
+    public int getBusNumber() { return busNumber; }
+    public String getSource() { return source; }
+    public String getDestination() { return destination; }
+    public int getAvailableSeats() { return availableSeats; }
+    void bookSeat() {
+        if(availableSeats > 0) {
+            availableSeats--;
+            System.out.println("Seat booked! Remaining seats: " + availableSeats);
+        } else {
+            System.out.println("No seats available!");
+        }
+    }
+    void cancelSeat() {
+        if(availableSeats < totalSeats) {
+            availableSeats++;
+            System.out.println("Seat cancelled! Available seats: " + availableSeats);
+        } else {
+            System.out.println("No booking to cancel!");
+        }
+    }
+    void displayDetails() {
+        System.out.println("Bus Number: " + busNumber);
+        System.out.println("Source: " + source);
+        System.out.println("Destination: " + destination);
+        System.out.println("Available Seats: " + availableSeats);
+    }
+}
+class Passenger {
+    private String name;
+    private int age;
+    private String seatNumber;
+
+    Passenger(String n, int a, String s) {
+        name = n;
+        age = a;
+        seatNumber = s;
+    }
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String getSeatNumber() { return seatNumber; }
+    void displayDetails() {
+        System.out.println("Passenger: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Seat: " + seatNumber);
+    }
+}
+class ElectricBus extends Bus {
+    private int batteryLevel;
+    ElectricBus(int bn, String s, String d, int ts, int bl) {
+        super(bn, s, d, ts);
+        batteryLevel = bl;
+    }
+    void checkBattery() {
+        if(batteryLevel > 20) {
+            System.out.println("Battery OK: " + batteryLevel + "%");
+        } else {
+            System.out.println("Low battery! Charge needed!");
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Bus b1 = new Bus(101, "Chennai", "Bangalore", 40);
+        Bus b2 = new Bus(102, "Chennai", "Hyderabad", 30);
+        ElectricBus eb1 = new ElectricBus(103, "Chennai", "Coimbatore", 20, 85);
+        Passenger p1 = new Passenger("Srikanth", 21, "A1");
+        Passenger p2 = new Passenger("Abhishek", 22, "A2");
+        System.out.println("=== Bus Details ===");
+        b1.displayDetails();
+        b2.displayDetails();
+        System.out.println("\n=== Booking Seats ===");
+        b1.bookSeat();
+        b1.bookSeat();
+        b2.bookSeat();
+        System.out.println("\n=== Passenger Details ===");
+        p1.displayDetails();
+        p2.displayDetails();
+        System.out.println("\n=== Cancelling Seat ===");
+        b1.cancelSeat();
+        System.out.println("\n=== Electric Bus ===");
+        eb1.checkBattery();
+        eb1.displayDetails();
+    }
+}
